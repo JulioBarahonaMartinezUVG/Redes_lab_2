@@ -10,4 +10,4 @@ print(msg.decode('UTF-8'))
 mensaje_esperado = "hola"
 mensaje_recibido = msg.decode('UTF-8')
 
-codigoHamming(mensaje_recibido, mensaje_esperado)
+corregido = codigoHamming(mensaje_recibido, mensaje_esperado)

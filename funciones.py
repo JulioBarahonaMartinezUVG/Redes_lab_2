@@ -67,7 +67,7 @@ def reemplazarArrayBits(data, correcto, r):
 
     for i in range(1, m + r+1): 
         if(i == 2**j): 
-            res = res + correcto[i]
+            res = res + correcto[-1 * i]
             j += 1
         else: 
             res = res + data[-1 * k] 
@@ -89,6 +89,33 @@ def busquedaError(bits, cantidad_bits_redundancia): # Solo encuentra un error
 
     return int(str(res), 2) 
 
+def corregir(bits, indexError):
+    m = len(bits) 
+    res = ''
+
+    for i in range(m):
+        if (i == indexError):
+            add = '1' if (bits[indexError] == '0') else '0'
+            res = res + add
+        else:
+            res = res + bits[i]
+
+    
+    return res
+
+
+def eliminarBitsParidad(bits): 
+    j = 0
+    m = len(bits) 
+    res = '' 
+
+    for i in range(1, m + 1): 
+        if(i == 2**j):
+            j += 1
+        else: 
+            res = res + bits[-1 * i]
+    
+    return res[::-1]
 
 # Codigo Hamming
 
@@ -98,6 +125,7 @@ def codigoHamming(mensaje_recibido, mensaje_esperado):
 
     ba_mr.frombytes(mensaje_recibido.encode('utf-8'))
     ba_me.frombytes(mensaje_esperado.encode('utf-8'))
+    print(ba_me)
 
     bits_mr = ""
     bits_me = ""
@@ -127,4 +155,15 @@ def codigoHamming(mensaje_recibido, mensaje_esperado):
 
     error_index = busquedaError(bits_con_error, cantidad_bits_redundantes)
 
-    print(error_index)
+    corregido = corregir(bits_con_error, len(bits_con_error) - error_index)
+
+    print("posicion error: ", len(bits_con_error) - error_index)
+
+    sinBitsParidad = eliminarBitsParidad(corregido)
+
+    ba_corregido = bitarray.bitarray(sinBitsParidad)
+    # ba_corregido.frombytes(int(sinBitsParidad, 2))
+
+    return ba_corregido.tobytes().decode("utf-8")
+    
+
