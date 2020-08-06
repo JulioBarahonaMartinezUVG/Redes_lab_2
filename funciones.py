@@ -2,6 +2,7 @@ import math
 import random
 import bitarray
 
+#genera ruido (bitarray, 1,100)
 def ruido(ba, numero_bits, por_cada):
     new_ba = ba.copy()
 
@@ -29,7 +30,8 @@ def cantidadBitsParidad(bits):
     for i in range(len(bits)): 
         if(2**i >= m + i + 1): 
             return i
-  
+
+
 def bitsParidad(bits, cantidad_bits_paridad): 
     j = 0
     k = 1
@@ -74,7 +76,8 @@ def reemplazarArrayBits(data, correcto, r):
             k += 1
     
     return res[::-1] 
-  
+
+
 def busquedaError(bits, cantidad_bits_redundancia): # Solo encuentra un error
     n = len(bits) 
     res = 0
@@ -91,7 +94,6 @@ def busquedaError(bits, cantidad_bits_redundancia): # Solo encuentra un error
 
 
 # Codigo Hamming
-
 def codigoHamming(mensaje_recibido, mensaje_esperado):
     ba_mr = bitarray.bitarray()
     ba_me = bitarray.bitarray()

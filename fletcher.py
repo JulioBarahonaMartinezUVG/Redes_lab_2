@@ -1,9 +1,13 @@
+import bitarray
+
 def generateFletcherChecksum(byteArray):
+    ba = bitarray.bitarray()
+    ba.frombytes(byteArray.encode('utf-8'))
     sum1 = 0xFF
     sum2 = 0xFF
     tlen = 0
 
-    numBytes = len(byteArray)
+    numBytes = len(ba)
 
     index = 0
     while (numBytes):
@@ -11,7 +15,7 @@ def generateFletcherChecksum(byteArray):
         numBytes -= tlen
 
         while (tlen):
-            sum1 += (byteArray[index] & 0xFF)
+            sum1 += (ba[index] & 0xFF)
             sum1 &= 0xFFFF
             sum2 += sum1
             sum2 &= 0xFFFF
@@ -26,4 +30,5 @@ def generateFletcherChecksum(byteArray):
 
     checksum = ((sum2 << 8) | sum1) & 0xFFFF
 
+    print(checksum % 8)
     return checksum
