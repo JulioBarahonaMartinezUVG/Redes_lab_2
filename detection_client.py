@@ -17,9 +17,9 @@ mensaje_recibido = msg.decode('UTF-8')
 
 print('mensaje_esperado: ',mensaje_esperado)
 print('mensaje_recibido: ',mensaje_recibido)
-
-print('Hamming: ')
-codigoHamming(mensaje_recibido, mensaje_esperado)
+#
+# print('Hamming: ')
+# codigoHamming(mensaje_recibido, mensaje_esperado)
 
 print('Fletcher orignal: ')
 generateFletcherChecksum(mensaje_esperado)
